@@ -31,6 +31,177 @@ document.addEventListener('DOMContentLoaded', () => {
 
         lastScroll = currentScroll;
     });
+
+    // Add animation classes
+    const animatedElements = document.querySelectorAll('.cost-item, .step, .testimonial');
+    animatedElements.forEach(element => {
+        element.classList.add('animate-on-scroll');
+    });
+
+    // Initialize animations
+    const animationObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('animate');
+                animationObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.2
+    });
+
+    // Observe animated elements
+    animatedElements.forEach(element => {
+        animationObserver.observe(element);
+    });
+
+    // Add hover effects for cost items
+    const costItems = document.querySelectorAll('.cost-item');
+    costItems.forEach(item => {
+        item.addEventListener('mouseenter', () => {
+            item.style.transform = 'translateY(-10px)';
+            item.style.boxShadow = 'var(--shadow-lg)';
+        });
+
+        item.addEventListener('mouseleave', () => {
+            item.style.transform = 'translateY(0)';
+            item.style.boxShadow = 'var(--shadow-md)';
+        });
+    });
+
+    // Add parallax effect to hero section
+    const hero = document.querySelector('.hero');
+    if (hero) {
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            hero.style.backgroundPositionY = `${scrolled * 0.5}px`;
+        });
+    }
+
+    // Add counter animation for statistics
+    function animateCounter(element, target, duration = 2000) {
+        const start = parseInt(element.textContent.replace(/[^0-9]/g, ''));
+        const increment = (target - start) / (duration / 16);
+        let current = start;
+
+        const animate = () => {
+            current += increment;
+            element.textContent = Math.round(current).toLocaleString();
+
+            if (increment > 0 ? current < target : current > target) {
+                requestAnimationFrame(animate);
+            } else {
+                element.textContent = target.toLocaleString();
+            }
+        };
+
+        animate();
+    }
+
+    // Initialize counters when they come into view
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const target = parseInt(entry.target.dataset.target);
+                animateCounter(entry.target, target);
+                counterObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.5
+    });
+
+    // Observe counter elements
+    document.querySelectorAll('[data-counter]').forEach(counter => {
+        counterObserver.observe(counter);
+    });
+
+    // Add smooth reveal for testimonials
+    const testimonials = document.querySelectorAll('.testimonial');
+    testimonials.forEach(testimonial => {
+        testimonial.style.opacity = '0';
+        testimonial.style.transform = 'translateY(20px)';
+    });
+
+    const testimonialObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+                entry.target.style.transition = 'all 0.6s ease-out';
+                testimonialObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.3
+    });
+
+    testimonials.forEach(testimonial => {
+        testimonialObserver.observe(testimonial);
+    });
+
+    // Add form validation and formatting
+    const subscriptionForm = document.getElementById('subscriptionForm');
+    if (subscriptionForm) {
+        const inputs = subscriptionForm.querySelectorAll('input[type="tel"], input[type="email"]');
+        
+        inputs.forEach(input => {
+            input.addEventListener('input', () => {
+                if (input.type === 'tel') {
+                    // Format phone number
+                    let value = input.value.replace(/\D/g, '');
+                    if (value.length > 0) {
+                        value = value.match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+                        input.value = !value[2] ? value[1] : 
+                                    !value[3] ? `(${value[1]}) ${value[2]}` : 
+                                    `(${value[1]}) ${value[2]}-${value[3]}`;
+                    }
+                }
+            });
+        });
+    }
+
+    // Add loading states for buttons
+    const buttons = document.querySelectorAll('.btn');
+    buttons.forEach(button => {
+        button.addEventListener('click', function() {
+            if (!this.classList.contains('loading')) {
+                const originalText = this.textContent;
+                this.classList.add('loading');
+                this.innerHTML = '<span class="spinner"></span> Processing...';
+                
+                // Simulate loading state (remove in production)
+                setTimeout(() => {
+                    this.classList.remove('loading');
+                    this.textContent = originalText;
+                }, 2000);
+            }
+        });
+    });
+
+    // Add scroll-triggered animations for sections
+    const sections = document.querySelectorAll('section');
+    sections.forEach(section => {
+        section.style.opacity = '0';
+        section.style.transform = 'translateY(20px)';
+    });
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+                entry.target.style.transition = 'all 0.8s ease-out';
+                sectionObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1
+    });
+
+    sections.forEach(section => {
+        sectionObserver.observe(section);
+    });
 });
 
 // Protection Calculator
@@ -421,6 +592,155 @@ class ImageSlider {
         this.currentSlide = (this.currentSlide - 1 + this.slides.length) % this.slides.length;
         this.updateSlides();
     }
+}
+
+// Business page specific functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize case study image slider
+    initializeSlider();
+    
+    // Initialize impact metrics counter animation
+    initializeCounters();
+    
+    // Initialize calculator
+    initializeCalculator();
+});
+
+function initializeSlider() {
+    const slider = document.querySelector('.image-slider');
+    if (!slider) return;
+
+    const slides = slider.querySelectorAll('.slide');
+    const controls = slider.querySelector('.slider-controls');
+    let currentSlide = 0;
+    
+    // Create control buttons
+    slides.forEach((_, index) => {
+        const button = document.createElement('button');
+        button.setAttribute('aria-label', `Go to slide ${index + 1}`);
+        button.addEventListener('click', () => goToSlide(index));
+        controls.appendChild(button);
+    });
+    
+    const controlButtons = controls.querySelectorAll('button');
+    
+    function goToSlide(index) {
+        slides[currentSlide].classList.remove('active');
+        controlButtons[currentSlide].classList.remove('active');
+        
+        currentSlide = index;
+        
+        slides[currentSlide].classList.add('active');
+        controlButtons[currentSlide].classList.add('active');
+    }
+    
+    // Initialize first slide
+    goToSlide(0);
+    
+    // Auto advance slides
+    setInterval(() => {
+        goToSlide((currentSlide + 1) % slides.length);
+    }, 5000);
+}
+
+function initializeCounters() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const counter = entry.target;
+                const target = parseInt(counter.getAttribute('data-target'));
+                animateCounter(counter, target);
+                observer.unobserve(counter);
+            }
+        });
+    }, { threshold: 0.5 });
+    
+    document.querySelectorAll('.metric .number, .stat .number').forEach(counter => {
+        observer.observe(counter);
+    });
+}
+
+function animateCounter(element, target) {
+    let current = 0;
+    const duration = 2000; // 2 seconds
+    const step = target / (duration / 16); // 60fps
+    
+    function update() {
+        current = Math.min(current + step, target);
+        element.textContent = Math.round(current).toLocaleString();
+        
+        if (current < target) {
+            requestAnimationFrame(update);
+        }
+    }
+    
+    update();
+}
+
+function initializeCalculator() {
+    const calculator = document.querySelector('.calculator-form');
+    if (!calculator) return;
+    
+    calculator.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const propertyValue = parseFloat(this.querySelector('[name="property-value"]').value) || 0;
+        const currentCoverage = parseFloat(this.querySelector('[name="current-coverage"]').value) || 0;
+        const monthlyRevenue = parseFloat(this.querySelector('[name="monthly-revenue"]').value) || 0;
+        
+        // Calculate potential losses
+        const coverageGap = Math.max(0, propertyValue - currentCoverage);
+        const monthlyLossRisk = monthlyRevenue * 0.3; // Assume 30% revenue loss during recovery
+        const totalRisk = coverageGap + (monthlyLossRisk * 3); // Assume 3 months recovery
+        
+        // Calculate Costguard savings
+        const standardCost = totalRisk * 0.15; // Standard insurance cost
+        const costguardCost = totalRisk * 0.08; // Costguard cost
+        const savings = standardCost - costguardCost;
+        
+        // Display results
+        displayCalculatorResults({
+            coverageGap,
+            monthlyLossRisk,
+            totalRisk,
+            standardCost,
+            costguardCost,
+            savings
+        });
+    });
+}
+
+function displayCalculatorResults(results) {
+    const resultsContainer = document.querySelector('.calculator-results');
+    if (!resultsContainer) return;
+    
+    resultsContainer.innerHTML = `
+        <div class="result-item">
+            <h4>Coverage Gap</h4>
+            <p>$${results.coverageGap.toLocaleString()}</p>
+        </div>
+        <div class="result-item">
+            <h4>Monthly Revenue at Risk</h4>
+            <p>$${results.monthlyLossRisk.toLocaleString()}</p>
+        </div>
+        <div class="result-item">
+            <h4>Total Risk Exposure</h4>
+            <p>$${results.totalRisk.toLocaleString()}</p>
+        </div>
+        <div class="result-item highlight">
+            <h4>Potential Annual Savings with Costguard</h4>
+            <p>$${results.savings.toLocaleString()}</p>
+        </div>
+    `;
+    
+    resultsContainer.style.display = 'grid';
+    
+    // Animate results into view
+    resultsContainer.querySelectorAll('.result-item').forEach((item, index) => {
+        setTimeout(() => {
+            item.classList.add('visible');
+        }, index * 200);
+    });
 }
 
 // Initialize all components
