@@ -3,28 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>San Carlos Flood Recovery | Blue Rescue Insurance</title>
+    <title>Business Continuity Protection | Blue Rescue Insurance</title>
     <link rel="stylesheet" href="css/styles.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <!-- Add Stripe.js -->
-    <script src="https://js.stripe.com/v3/"></script>
 </head>
 <body class="commercial-theme">
     <!-- Navigation -->
     <nav class="nav">
         <div class="container nav-container">
             <a href="#" class="nav-logo">Blue Rescue</a>
-            <button class="mobile-menu-btn">
-                <i class="fas fa-bars"></i>
-            </button>
             <div class="nav-links">
                 <a href="#comparison">Coverage Comparison</a>
                 <a href="#case-study">Case Study</a>
                 <a href="#calculator">Calculator</a>
-                <a href="#contact">Contact</a>
+                <a href="#subscribe" class="btn btn-primary">Get Protected</a>
             </div>
         </div>
     </nav>
@@ -39,7 +34,7 @@
     </section>
 
     <!-- Comparison Section -->
-    <section id="comparison" class="comparison-section">
+    <section id="comparison" class="comparison">
         <div class="container">
             <h2>Coverage Comparison</h2>
             <div class="comparison-table">
@@ -86,28 +81,32 @@
     <!-- Case Study Section -->
     <section id="case-study" class="case-study">
         <div class="container">
-            <h2>Rapid Business Recovery</h2>
+            <h2>San Carlos Flood Recovery Success</h2>
             <div class="case-study-content">
                 <div class="case-study-text">
-                    <h3>San Carlos Flood Recovery</h3>
+                    <h3>Tech Solutions Inc.</h3>
                     <p>When a flash flood hit San Carlos, Tech Solutions Inc. faced a critical situation. Their server room was damaged, and business operations came to a halt. Their standard insurance didn't cover the flood damage or business interruption.</p>
-                    <p>With Blue Rescue's comprehensive coverage, they received immediate support and full protection.</p>
-                    <ul class="recovery-stats">
-                        <li>48-hour equipment replacement</li>
-                        <li>Full business interruption coverage</li>
-                        <li>Data recovery services included</li>
-                        <li>Dedicated recovery specialist</li>
-                    </ul>
-                </div>
-                <div class="case-study-slider" id="caseStudySlider">
-                    <div class="slide">
-                        <img src="https://via.placeholder.com/1200x800/1e40af/ffffff?text=Before+Flood+Damage" alt="Before flood damage">
-                    </div>
-                    <div class="slide">
-                        <img src="https://via.placeholder.com/1200x800/3b82f6/ffffff?text=After+Restoration" alt="After flood restoration">
-                    </div>
-                    <div class="slide">
-                        <img src="https://via.placeholder.com/1200x800/2563eb/ffffff?text=During+Cleanup" alt="During cleanup process">
+                    <div class="recovery-stats">
+                        <div class="stat">
+                            <h3>48h</h3>
+                            <p>Equipment Replacement</p>
+                            <span>Rapid deployment of temporary servers</span>
+                        </div>
+                        <div class="stat">
+                            <h3>100%</h3>
+                            <p>Coverage</p>
+                            <span>Full business interruption coverage</span>
+                        </div>
+                        <div class="stat">
+                            <h3>24/7</h3>
+                            <p>Support</p>
+                            <span>Dedicated recovery specialist</span>
+                        </div>
+                        <div class="stat">
+                            <h3>$0</h3>
+                            <p>Revenue Loss</p>
+                            <span>Operations maintained through recovery</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -126,11 +125,10 @@
                         id="propertyValue" 
                         required 
                         placeholder="Enter your property value"
-                        data-tooltip="Enter the total value of your commercial property including equipment and inventory"
+                        data-tooltip="Enter the total value of your commercial property including equipment"
                         data-min="250000"
                         data-max="50000000"
                     >
-                    <div class="error-message">Please enter a value between $250,000 and $50,000,000</div>
                 </div>
                 <div class="form-group">
                     <label for="currentCoverage">Current Insurance Coverage</label>
@@ -140,10 +138,7 @@
                         required 
                         placeholder="Enter your current coverage amount"
                         data-tooltip="Enter your current commercial insurance coverage amount"
-                        data-min="0"
-                        data-max="50000000"
                     >
-                    <div class="error-message">Please enter a value between $0 and $50,000,000</div>
                 </div>
                 <div class="form-group">
                     <label for="monthlyRevenue">Average Monthly Revenue</label>
@@ -152,11 +147,8 @@
                         id="monthlyRevenue" 
                         required 
                         placeholder="Enter your average monthly revenue"
-                        data-tooltip="Enter your business's average monthly revenue for business interruption coverage calculation"
-                        data-min="10000"
-                        data-max="1000000"
+                        data-tooltip="Enter your business's average monthly revenue"
                     >
-                    <div class="error-message">Please enter a value between $10,000 and $1,000,000</div>
                 </div>
                 <button type="submit" class="btn btn-primary">Calculate Protection</button>
                 <div id="calculatorResults"></div>
@@ -165,87 +157,61 @@
     </section>
 
     <!-- Subscribe Section -->
-    <section id="subscribe" class="subscribe-section">
+    <section id="subscribe" class="subscribe">
         <div class="container">
             <h2>Protect Your Business Today</h2>
-            <p>Complete your subscription in minutes and receive comprehensive business coverage.</p>
-            
             <div class="subscription-process">
-                <div class="subscription-step">
+                <div class="step">
                     <i class="fas fa-building"></i>
                     <h3>1. Business Details</h3>
-                    <p>Fill in your business and property information</p>
+                    <p>Fill in your business information</p>
                 </div>
-                <div class="subscription-step">
+                <div class="step">
                     <i class="fas fa-credit-card"></i>
                     <h3>2. Payment</h3>
-                    <p>Secure payment processing with Stripe</p>
+                    <p>Complete secure payment</p>
                 </div>
-                <div class="subscription-step">
+                <div class="step">
                     <i class="fas fa-shield-alt"></i>
                     <h3>3. Get Protected</h3>
-                    <p>Receive your business policy certificate instantly</p>
+                    <p>Receive instant coverage</p>
                 </div>
             </div>
 
             <form id="subscriptionForm" class="subscription-form">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="businessName">Business Name</label>
-                        <input type="text" id="businessName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="contactName">Contact Name</label>
-                        <input type="text" id="contactName" required>
-                    </div>
+                <div class="form-group">
+                    <label for="businessName">Business Name</label>
+                    <input type="text" id="businessName" required>
                 </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="email">Business Email</label>
-                        <input type="email" id="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Business Phone</label>
-                        <input type="tel" id="phone" required>
-                    </div>
+                <div class="form-group">
+                    <label for="contactName">Contact Name</label>
+                    <input type="text" id="contactName" required>
                 </div>
-                
+                <div class="form-group">
+                    <label for="email">Business Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Business Phone</label>
+                    <input type="tel" id="phone" required>
+                </div>
                 <div class="form-group">
                     <label for="address">Business Address</label>
                     <input type="text" id="address" required>
                 </div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="businessType">Business Type</label>
-                        <select id="businessType" required>
-                            <option value="">Select business type</option>
-                            <option value="retail">Retail</option>
-                            <option value="office">Office</option>
-                            <option value="manufacturing">Manufacturing</option>
-                            <option value="warehouse">Warehouse</option>
-                            <option value="restaurant">Restaurant</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="employees">Number of Employees</label>
-                        <input type="number" id="employees" min="1" required>
-                    </div>
+                <div class="form-group">
+                    <label for="businessType">Business Type</label>
+                    <select id="businessType" required>
+                        <option value="">Select business type</option>
+                        <option value="retail">Retail</option>
+                        <option value="office">Office</option>
+                        <option value="manufacturing">Manufacturing</option>
+                        <option value="warehouse">Warehouse</option>
+                        <option value="restaurant">Restaurant</option>
+                        <option value="other">Other</option>
+                    </select>
                 </div>
-                
-                <div class="payment-section">
-                    <h3>Payment Information</h3>
-                    <div class="form-group">
-                        <label for="card-element">Credit or Debit Card</label>
-                        <div id="card-element"></div>
-                        <div id="card-errors" class="error-message"></div>
-                    </div>
-                </div>
-                
-                <button type="submit" class="btn btn-primary btn-large">Subscribe Now</button>
-                
+                <button type="submit" class="btn btn-primary">Subscribe Now</button>
                 <p class="form-disclaimer">
                     By subscribing, you agree to our Terms of Service and Privacy Policy. Your business policy certificate will be emailed to you immediately after successful payment processing.
                 </p>
@@ -254,7 +220,7 @@
     </section>
 
     <!-- Footer -->
-    <footer id="contact" class="footer">
+    <footer>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
@@ -269,7 +235,7 @@
                     <a href="#comparison">Coverage Comparison</a>
                     <a href="#case-study">Case Study</a>
                     <a href="#calculator">Calculator</a>
-                    <a href="#contact">Contact</a>
+                    <a href="#subscribe">Subscribe</a>
                 </div>
                 <div class="footer-section">
                     <h3>Follow Us</h3>
